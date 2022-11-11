@@ -69,4 +69,4 @@ jobs:
           git config --global user.name "github-actions[bot]" && \
           git add . && \
           git commit -am 'Scaffold repository' && \
-          git push origin $GITHUB_HEAD_REF
+          git push -u origin $GITHUB_HEAD_REF

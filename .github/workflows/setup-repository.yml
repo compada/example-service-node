@@ -40,7 +40,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: cookie
-          path: ./cookie
+          path: ./cookie/repo
 
   bake:
     needs: make
@@ -70,4 +70,4 @@ jobs:
           git checkout --orphan temp-branch
           git add .
           git commit -am "Scaffold repository"
-          git push origin temp-branch:$GITHUB_HEAD_REF -f
+          git push origin temp-branch:main -f

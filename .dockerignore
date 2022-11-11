@@ -1,0 +1,11 @@
+.env
+.git
+.github
+.next
+.vscode
+
+*Dockerfile*
+*docker-compose*
+
+**/dist
+**/__tests__

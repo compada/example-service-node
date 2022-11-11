@@ -1,0 +1,67 @@
+# https://stefanbuck.com/blog/repository-templates-meets-github-actions
+
+on:
+  push:
+    paths:
+      - cookiecutter.json
+jobs:
+  make:
+    name: Make the cookie
+    runs-on: ubuntu-latest
+    steps:
+      - name: Do not run scaffolding on template repository
+        shell: bash
+        # This workflow runs when the `cookiecutter.json` file is modified.
+        # We don't want to run this action if this file is modified in the origin template repository.
+        #
+        # Using the GitHub rest API allows us to identify if the current repository
+        # is a template repository or not.
+        run: gh api repos/$GITHUB_REPOSITORY | jq --exit-status '.is_template == false';
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install cookiecutter
+      - name: Scaffolding repository
+        # cookiecutter is a command-line utility to create projects from templates
+        # https://github.com/cookiecutter/cookiecutter.
+        #
+        # --no-input      Do not prompt for parameters and only use
+        #                 cookiecutter.json file content
+        #
+        # --output-dir    Where to output the generated project dir into
+        run: cookiecutter . --no-input --output-dir ./cookie
+      - uses: actions/upload-artifact@v3
+        with:
+          name: cookie
+          path: ./cookie
+
+  bake:
+    name: Bake the cookie
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: cookie
+      # - name: Prepare root directory
+      #   shell: bash
+      #   # Remove all files and folders except .git/ and cookiecutter-temp/.
+      #   run: |
+      #     find ./ -maxdepth 1 \
+      #     ! -name '.git' \
+      #     ! -name 'cookiecutter-temp' \
+      #     ! -name '.' \
+      #     ! -exec rm -rf {} +
+      - name: Reinitialize git repository
+        shell: bash
+        # Reinitialize git after scaffolding this repository.
+        # We use `git checkout --orphan` to create a branch in a git init-like state.
+        # By force pushing this as `main` we end up with a new clean git history.
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com" && \
+          git config --global user.name "github-actions[bot]" && \
+          git checkout --orphan temp-branch && \
+          git add . && \
+          git commit -m 'Initial commit' && \
+          git push origin temp-branch:main -f

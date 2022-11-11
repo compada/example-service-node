@@ -1,0 +1,11 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: production
+resources:
+  - ../../base
+configMapGenerator:
+  - name: {{ cookiecutter.mostRecentImageTag }}-service-config
+    behavior: merge
+    envs:
+      - .env

@@ -1,0 +1,11 @@
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'deploy/**'
+      - '.github/**'
+name: Docker Image
+jobs:
+  docker:
+    uses: compada/compada/.github/workflows/docker_image.yml@main

@@ -1,0 +1,40 @@
+services:
+  postgres:
+    env_file: .env
+    image: postgres:15
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+      - postgres:/var/lib/postgresql/data
+
+  npm: &npm
+    env_file: .env
+    build:
+      context: .
+    entrypoint: npm
+    command: help
+    volumes:
+      - .:/usr/src/app:delegated
+      - node:/node_modules:delegated
+
+  npx: &npx
+    <<: *npm
+    entrypoint: npx
+    command: -h
+
+  app:
+    <<: *npm
+    depends_on:
+      - postgres
+    ports:
+      - ${PORT}:${PORT}
+    command: run dev
+
+  db.watch:
+    <<: *npx
+    depends_on:
+      - postgres
+    command: graphile-migrate watch
+
+volumes:
+  node: {}
+  postgres: {}

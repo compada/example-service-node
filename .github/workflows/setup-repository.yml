@@ -63,10 +63,11 @@ jobs:
         shell: bash
         # Reinitialize git after scaffolding this repository.
         # We use `git checkout --orphan` to create a branch in a git init-like state.
-        # By force pushing this as `main` we end up with a new clean git history.
+        # By force pushing this we end up with a new clean git history.
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
+          git checkout --orphan temp-branch
           git add .
           git commit -am "Scaffold repository"
-          git push origin $GITHUB_HEAD_REF --force
+          git push origin temp-branch:$GITHUB_HEAD_REF -f

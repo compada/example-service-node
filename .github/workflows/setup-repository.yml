@@ -43,21 +43,21 @@ jobs:
           path: ./cookie
 
   bake:
+    needs: make
     name: Bake the cookie
     runs-on: ubuntu-latest
     steps:
+      - name: Prepare root directory
+        shell: bash
+        # Remove all files and folders except .git/.
+        run: |
+          find ./ -maxdepth 1 \
+          ! -name '.git' \
+          ! -name '.' \
+          ! -exec rm -rf {} +
       - uses: actions/download-artifact@v3
         with:
           name: cookie
-      # - name: Prepare root directory
-      #   shell: bash
-      #   # Remove all files and folders except .git/ and cookiecutter-temp/.
-      #   run: |
-      #     find ./ -maxdepth 1 \
-      #     ! -name '.git' \
-      #     ! -name 'cookiecutter-temp' \
-      #     ! -name '.' \
-      #     ! -exec rm -rf {} +
       - name: Reinitialize git repository
         shell: bash
         # Reinitialize git after scaffolding this repository.

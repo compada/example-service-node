@@ -1,6 +1,7 @@
 {
-  "resource": "",
-  "resourcePlural": "",
-  "description": "",
-  "mostRecentImageTag": "main-5851779-1668045398"
+  "project_slug": "thing-service",
+  "resource": "thing",
+  "resource_plural": "things",
+  "description": "foo bar baz",
+  "most_recent_image_tag": "main-5851779-1668045398"
 }

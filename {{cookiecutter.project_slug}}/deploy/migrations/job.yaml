@@ -1,52 +1,26 @@
-kind: Deployment
-apiVersion: apps/v1
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: {{ cookiecutter.resource }}-service
+  name: {{ cookiecutter.resource }}-service-migrations
 spec:
-  selector:
-    matchLabels:
-      app: {{ cookiecutter.resource }}-service
-  replicas: 1
-  strategy:
-    type: RollingUpdate
-  revisionHistoryLimit: 3
+  backoffLimit: 4
   template:
-    metadata:
-      labels:
-        app: {{ cookiecutter.resource }}-service
     spec:
       serviceAccountName: {{ cookiecutter.resource }}-service
-      restartPolicy: Always
+      restartPolicy: Never
       imagePullSecrets:
         - name: registry-auth
       containers:
-        - name: {{ cookiecutter.resource }}-service
-          image: ghcr.io/compada/{{ cookiecutter.resource }}-service:{{ cookiecutter.mostRecentImageTag }} # {"$imagepolicy": "flux-system:{{ cookiecutter.resource }}-service"}
+        - name: migrations
+          image: ghcr.io/compada/{{ cookiecutter.resource }}-service:{{ cookiecutter.most_recent_image_tag }} # {"$imagepolicy": "flux-system:{{ cookiecutter.resource }}-service"}
           imagePullPolicy: IfNotPresent
-          ports:
-            - name: web
-              containerPort: 8080
           envFrom:
             - configMapRef:
-                name: {{ cookiecutter.resource }}-service-config
+                name: {{ cookiecutter.resource }}-service-config-4bhcmt5d58
             - secretRef:
                 name: {{ cookiecutter.resource }}-service-db-auth
-          resources:
-            requests:
-              cpu: 50m
-              memory: 200M
-            limits:
-              cpu: 100m
-              memory: 400M
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: web
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: web
-            initialDelaySeconds: 60
+          command: ["npx"]
+          args: ["graphile-migrate", "migrate"]
         - name: cloud-sql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:1.33.0 # make sure the use the latest version
           command:

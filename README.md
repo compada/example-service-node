@@ -1,40 +1,10 @@
-# Compada {{ cookiecutter.resource | capitalize }} Service
+# Node Service
 
-Federated graphQL sub-graph concerning {{ cookiecutter.resourcePlural }}, along with the various information intrinsically related to them.
-
-## Getting Started
-
-This service makes heavy use of docker and docker compose. Setting up docker is beyond the scope of this readme.
-
-```shell
-cp .env.sample .env
-docker compose up -d
-```
+Cookiecutter template for Node server powered by graphQL and Postgraphile.
 
 ## Usage
 
-```graphql
-query fetchResources {
-  {{ cookiecutter.resourcePlural }} {
-    nodes {
-      id
-    }
-  }
-}
-```
+Create a repository from this template:
 
-## Contributing
-
-Submit PRs...
-
-## Deployment
-
-This should be done for you via CI/CD. See <https://github.com/compada/cd>.
-
-## Reading
-
-Learn about the various tech powering this application:
-
-- [GraphQL](https://graphql.org)
-- [GraphQL Federation](https://www.apollographql.com/docs/federation)
-- [Docker](https://docs.docker.com/compose/gettingstarted)
+1. Click the big green button within Github that says "Use this template".
+2. From the new repo, create a PR that modifies [cookiecutter.json](./cookiecutter.json)

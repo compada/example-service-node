@@ -1,4 +1,4 @@
-\connect {{ cookiecutter.resourcePlural }};
+\connect {{ cookiecutter.resource_plural }};
 
 INSERT INTO public.{{ cookiecutter.resource }} (id, attr1, attr2) VALUES
 ('d67fa44a-70c1-4d1a-89ba-973f9abdfe3f', 'foo', 'bar'),

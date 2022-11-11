@@ -1,4 +1,4 @@
-\connect {{ cookiecutter.resourcePlural }};
+\connect {{ cookiecutter.resource_plural }};
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 

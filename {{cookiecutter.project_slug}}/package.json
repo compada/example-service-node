@@ -2,7 +2,7 @@
   "name": "{{ cookiecutter.resource }}-service",
   "version": "0.0.1",
   "private": true,
-  "description": "Federated graphQL sub-graph concerning {{ cookiecutter.resourcePlural }}.",
+  "description": "Federated graphQL sub-graph concerning {{ cookiecutter.resource_plural }}.",
   "type": "module",
   "scripts": {
     "start": "node ./src/index.js",

@@ -47,6 +47,7 @@ jobs:
     name: Bake the cookie
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Prepare root directory
         shell: bash
         # Remove all files and folders except .git/.

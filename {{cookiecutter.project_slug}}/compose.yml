@@ -8,6 +8,8 @@ services:
 
   npm: &npm
     env_file: .env
+    tty: true
+    stdin_open: true
     build:
       context: .
     entrypoint: npm

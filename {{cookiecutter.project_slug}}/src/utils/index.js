@@ -1,2 +1,2 @@
 export * from "./postgraphile.js";
-export * from "./check_jwt.js";
+export * from "./auth.js";

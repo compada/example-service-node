@@ -3,5 +3,7 @@
   "resource": "thing",
   "resource_plural": "things",
   "description": "foo bar baz",
-  "most_recent_image_tag": "main-5851779-1668045398"
+  "most_recent_image_tag": "main-5851779-1668045398",
+  "gcp_region": "us-west1",
+  "gcp_project_id": "kinetic-dryad-364616"
 }

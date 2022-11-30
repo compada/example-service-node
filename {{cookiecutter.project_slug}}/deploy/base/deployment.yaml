@@ -62,7 +62,7 @@ spec:
             - "-log_debug_stdout"
             # Replace DB_PORT with the port the proxy should listen on
             # Defaults: MySQL: 3306, Postgres: 5432, SQLServer: 1433
-            - "-instances=kinetic-dryad-364616:us-west1:{{ cookiecutter.resource }}-service-db=tcp:5432"
+            - "-instances={{ cookiecutter.gcp_project_id }}:{{ cookiecutter.gcp_region }}:{{ cookiecutter.resource }}-service-db=tcp:5432"
           securityContext:
             # The default Cloud SQL proxy image runs as the
             # "nonroot" user and group (uid: 65532) by default.

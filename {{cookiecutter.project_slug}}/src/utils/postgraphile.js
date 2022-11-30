@@ -11,9 +11,16 @@ const appendPlugins = [
   FederationPlugin.default
 ];
 
+const ROLES = [
+  "postgres"
+];
+
 const pgSettings = (req) => {
-  const settings = {};
+  const settings = { "role": "visitor" };
   if (req.auth) {
+    const roles = req.auth["https://api.compada.io/roles"] || [];
+    // Intersection (ROLES ∩ roles)[0]
+    settings["role"] = ROLES.find(x => roles.includes(x)) || "person";
     settings["jwt.claims.scope"] = req.auth.scope;
     settings["jwt.claims.person_id"] = req.auth.person_id;
   }

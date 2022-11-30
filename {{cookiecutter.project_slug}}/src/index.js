@@ -4,7 +4,7 @@ import http from "http";
 import express from "express";
 import cors from "cors";
 import { postgraphileMiddleware } from "./utils/index.js";
-import { checkJwt } from "./utils/index.js";
+import { checkJwt, authErrors } from "./utils/index.js";
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -12,6 +12,7 @@ const httpServer = http.createServer(app);
 app.use(cors());
 
 app.use(postgraphileMiddleware.graphqlRoute, checkJwt);
+app.use(postgraphileMiddleware.graphqlRoute, authErrors);
 app.use(postgraphileMiddleware);
 
 app.get("/healthz", (_, res) => {

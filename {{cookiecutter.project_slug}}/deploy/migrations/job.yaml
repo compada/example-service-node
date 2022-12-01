@@ -26,6 +26,7 @@ spec:
           args: ["graphile-migrate", "migrate"]
         - name: cloud-sql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:1.33.0 # make sure the use the latest version
+          imagePullPolicy: IfNotPresent
           command:
             - "/cloud_sql_proxy"
             # If connecting from a VPC-native GKE cluster, you can use the

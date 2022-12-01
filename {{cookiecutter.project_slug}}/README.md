@@ -23,7 +23,7 @@ GitHub's standard files (`CODEOWNERS`, `ISSUE_TEMPLATE`, etc) are managed within
 
 ### API calls via graphQL
 
-Get a feel for our API via [graphiQL](https://graphiql.compada.dev/). You can set it up locally via [our repo](https://github.com/compada/graphiql), or use the baked in tooling provided at /graphql.
+Get a feel for our API via [graphiQL](https://graphiql.compada.dev). Use the built in tooling from postgraphile via <http://localhost:8080/graphiql>.
 
 ```graphql
 query fetchResources {
@@ -41,7 +41,7 @@ The graph is powered by [Postgraphile](https://www.graphile.org/postgraphile/int
 
 ## Deployment
 
-This should be done for you via CI/CD. 
+This should be done for you via CI/CD.
 
 - [CI](./.github/workflows)
   - YOU NEED TO SET THIS UP [MANUALLY](https://github.com/compada/.github/actions/new). SEE [PERSON-SERVICE](https://github.com/compada/person-service) FOR INSPIRATION.

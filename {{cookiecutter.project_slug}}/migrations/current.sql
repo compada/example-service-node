@@ -20,6 +20,22 @@ CREATE OR REPLACE FUNCTION current_user_id() RETURNS uuid AS $$
   SELECT nullif(current_setting('jwt.claims.person_id', true), '')::uuid;
 $$ language sql stable;
 
+ALTER TABLE public.{{ cookiecutter.resource }} ENABLE ROW LEVEL SECURITY;
+
+DO
+$$BEGIN
+  CREATE ROLE visitor;
+  GRANT visitor to postgres;
+  GRANT SELECT ON ALL TABLES IN SCHEMA public TO visitor;
+
+  CREATE ROLE person;
+  GRANT person to postgres;
+  GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO person;
+EXCEPTION
+  WHEN duplicate_object THEN
+    RAISE NOTICE 'Role already exists. Ignoring...';
+END$$;
+
 -- Keep if the resource is to be managed by a person
 DROP POLICY IF EXISTS user_sel_policy on public.{{ cookiecutter.resource }};
 CREATE POLICY user_sel_policy ON public.{{ cookiecutter.resource }}

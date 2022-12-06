@@ -8,7 +8,7 @@ ENV PATH ./node_modules/.bin:$PATH
 
 # install and cache app dependencies
 ADD package*.json ./
-RUN npm ci --silent --production
+RUN if test -f "./package-lock.json"; then npm ci --silent --production; fi
 
 ADD . ./
 

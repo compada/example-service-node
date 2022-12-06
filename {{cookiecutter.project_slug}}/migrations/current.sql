@@ -2,11 +2,11 @@
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE TABLE public.{{ cookiecutter.resource }} (
-    id uuid DEFAULT uuid_generate_v4 (),
-    -- more attributes!!
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
+CREATE TABLE IF NOT EXISTS public.{{ cookiecutter.resource }} (
+  id uuid DEFAULT uuid_generate_v4 (),
+  -- more attributes!!
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
 );
 
 COMMENT ON TABLE public.{{ cookiecutter.resource }} IS
@@ -27,13 +27,19 @@ $$BEGIN
   CREATE ROLE visitor;
   GRANT visitor to postgres;
   GRANT SELECT ON ALL TABLES IN SCHEMA public TO visitor;
+EXCEPTION
+  WHEN duplicate_object THEN
+    RAISE NOTICE 'Role visitor already exists. Ignoring...';
+END$$;
 
+DO
+$$BEGIN
   CREATE ROLE person;
   GRANT person to postgres;
   GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO person;
 EXCEPTION
   WHEN duplicate_object THEN
-    RAISE NOTICE 'Role already exists. Ignoring...';
+    RAISE NOTICE 'Role person already exists. Ignoring...';
 END$$;
 
 -- Keep if the resource is to be managed by a person

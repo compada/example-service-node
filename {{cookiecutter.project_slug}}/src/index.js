@@ -10,9 +10,9 @@ const app = express();
 const httpServer = http.createServer(app);
 
 app.use(cors());
+app.use(authErrors);
 
 app.use(postgraphileMiddleware.graphqlRoute, checkJwt);
-app.use(postgraphileMiddleware.graphqlRoute, authErrors);
 app.use(postgraphileMiddleware);
 
 app.get("/healthz", (_, res) => {

@@ -43,10 +43,10 @@ EXCEPTION
 END$$;
 
 -- Keep if the resource is to be managed by a person
-DROP POLICY IF EXISTS user_sel_policy on public.{{ cookiecutter.resource }};
-CREATE POLICY user_sel_policy ON public.{{ cookiecutter.resource }}
+DROP POLICY IF EXISTS {{ cookiecutter.resource }}_sel_policy on public.{{ cookiecutter.resource }};
+CREATE POLICY {{ cookiecutter.resource }}_sel_policy ON public.{{ cookiecutter.resource }}
   FOR SELECT
   USING (true);
-DROP POLICY IF EXISTS user_mod_policy on public.{{ cookiecutter.resource }};
-CREATE POLICY user_mod_policy ON public.{{ cookiecutter.resource }}
+DROP POLICY IF EXISTS {{ cookiecutter.resource }}_mod_policy on public.{{ cookiecutter.resource }};
+CREATE POLICY {{ cookiecutter.resource }}_mod_policy ON public.{{ cookiecutter.resource }}
   USING ("person_id" = current_user_id());

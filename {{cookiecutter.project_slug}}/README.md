@@ -35,16 +35,23 @@ query fetchResources {
 }
 ```
 
+### Authorization
+
+Authorization is managed via JWTs from [Auth0](https://manage.auth0.com/dashboard/us/compada/). If you need interact with the User resource, see `src/apis/auth0.js`.
+
 ### Database
 
 ```sh
-gcloud sql connect person-service-db --user=postgres
+gcloud sql connect {{ cookiecutter.resource }}-service-db --user=postgres
 ```
 
 ```sql
-\connect persons
+\connect {{ cookiecutter.resource_plural }}
 SELECT * FROM pg_policies;
 SELECT * FROM pg_roles;
+
+SELECT COUNT(*) FROM public.{{ cookiecutter.resource }};
+SELECT * FROM public.{{ cookiecutter.resource }} LIMIT 1;
 
 SET jwt.claims.person_id to [YOUR_PERSON_UUID];
 SELECT current_user_id();
@@ -52,7 +59,7 @@ SELECT current_user_id();
 
 ### Migrations
 
-Modify migrations/current.sql, per <https://github.com/graphile/migrate#usage>.
+Modify `migrations/current.sql`, per <https://github.com/graphile/migrate#usage>.
 
 When you're ready to lock in the changes, run:
 

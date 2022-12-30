@@ -35,6 +35,31 @@ query fetchResources {
 }
 ```
 
+### Database
+
+```sh
+gcloud sql connect person-service-db --user=postgres
+```
+
+```sql
+\connect persons
+SELECT * FROM pg_policies;
+SELECT * FROM pg_roles;
+
+SET jwt.claims.person_id to [YOUR_PERSON_UUID];
+SELECT current_user_id();
+```
+
+### Migrations
+
+Modify migrations/current.sql, per <https://github.com/graphile/migrate#usage>.
+
+When you're ready to lock in the changes, run:
+
+```sh
+dr npx graphile-migrate commit
+```
+
 ## Contributing
 
 The graph is powered by [Postgraphile](https://www.graphile.org/postgraphile/introduction). CRUD operations will be handled by simply adding migrations to the database. If there's some bit of custom logic that can't be written within postgres functions, you can [extend the schema manually](https://www.graphile.org/postgraphile/make-extend-schema-plugin/).

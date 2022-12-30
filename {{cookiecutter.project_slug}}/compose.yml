@@ -23,6 +23,11 @@ services:
     entrypoint: npx
     command: -h
 
+  node:
+    <<: *npm
+    entrypoint: node
+    command: -h
+
   app:
     <<: *npm
     depends_on:

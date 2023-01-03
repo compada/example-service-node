@@ -67,6 +67,12 @@ When you're ready to lock in the changes, run:
 dr npx graphile-migrate commit
 ```
 
+To run migrations in production, run the Kubernetes Job:
+
+```sh
+kubectl apply -k deploy/overlays/develop/migrations
+```
+
 ## Contributing
 
 The graph is powered by [Postgraphile](https://www.graphile.org/postgraphile/introduction). CRUD operations will be handled by simply adding migrations to the database. If there's some bit of custom logic that can't be written within postgres functions, you can [extend the schema manually](https://www.graphile.org/postgraphile/make-extend-schema-plugin/).

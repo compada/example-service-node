@@ -5,7 +5,7 @@ namespace: production
 resources:
   - ../../base
 configMapGenerator:
-  - name: {{ cookiecutter.most_recent_image_tag }}-service-config
+  - name: {{ cookiecutter.resource }}-service-config
     behavior: merge
     envs:
       - .env

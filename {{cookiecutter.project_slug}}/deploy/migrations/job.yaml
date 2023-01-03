@@ -16,7 +16,7 @@ spec:
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
-                name: {{ cookiecutter.resource }}-service-config
+                name: {{ cookiecutter.resource }}-service-config-4bhcmt5d58
             - secretRef:
                 name: {{ cookiecutter.resource }}-service-db-auth
           env:

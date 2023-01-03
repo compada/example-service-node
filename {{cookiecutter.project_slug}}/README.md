@@ -54,7 +54,7 @@ SELECT COUNT(*) FROM public.{{ cookiecutter.resource }};
 SELECT * FROM public.{{ cookiecutter.resource }} LIMIT 1;
 
 SET jwt.claims.person_id to [YOUR_PERSON_UUID];
-SELECT current_user_id();
+SELECT current_person_id();
 ```
 
 ### Migrations

@@ -21,7 +21,7 @@ spec:
                 name: {{ cookiecutter.resource }}-service-db-auth
           env:
             - name: DATABASE_URL
-              value: "postgres://$(PGUSER):$(PGPASSWORD)@localhost:5432/$(PGDATABASE)"
+              value: "postgres://$(PGUSER):$(PGPASSWORD)@localhost:$(PGPORT)/$(PGDATABASE)"
           command: ["npx"]
           args: ["graphile-migrate", "migrate"]
         - name: cloud-sql-proxy

@@ -12,11 +12,11 @@ CREATE TABLE IF NOT EXISTS public.{{ cookiecutter.resource }} (
 COMMENT ON TABLE public.{{ cookiecutter.resource }} IS
 '{{ cookiecutter.description }}';
 COMMENT ON COLUMN public.{{ cookiecutter.resource }}.id IS
-'The primary unique UUID for the {{ cookiecutter.resource }}.';
+'The UUID of the {{ cookiecutter.resource }}.';
 COMMENT ON COLUMN public.{{ cookiecutter.resource }}.created_at IS
 'The {{ cookiecutter.resource }}''s timestamp when created.';
 
-CREATE OR REPLACE FUNCTION current_user_id() RETURNS uuid AS $$
+CREATE OR REPLACE FUNCTION current_person_id() RETURNS uuid AS $$
   SELECT nullif(current_setting('jwt.claims.person_id', true), '')::uuid;
 $$ language sql stable;
 
@@ -49,4 +49,4 @@ CREATE POLICY {{ cookiecutter.resource }}_sel_policy ON public.{{ cookiecutter.r
   USING (true);
 DROP POLICY IF EXISTS {{ cookiecutter.resource }}_mod_policy on public.{{ cookiecutter.resource }};
 CREATE POLICY {{ cookiecutter.resource }}_mod_policy ON public.{{ cookiecutter.resource }}
-  USING ("person_id" = current_user_id());
+  USING ("person_id" = current_person_id());

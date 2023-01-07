@@ -39,10 +39,11 @@ const allowExplain = (_req) => {
 
 const graphileBuildOptions = {
   pgStrictFunctions: true,
-  connectionFilterAllowedFieldTypes: ["String", "Int"],
+  connectionFilterAllowedFieldTypes: ["String", "Int", "UUID", "Boolean"],
   connectionFilterArrays: false,
   connectionFilterComputedColumns: false,
   connectionFilterSetofFunctions: false,
+  connectionFilterRelations: true,
 };
 
 const postgraphileOptionsDEV = {

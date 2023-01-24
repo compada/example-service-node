@@ -21,11 +21,11 @@ const ROLES = [
 ];
 
 const pgSettings = (req) => {
-  const settings = { "role": "visitor" };
+  const settings = { "role": ROLES[2] };
   if (req.auth) {
     const roles = req.auth["https://api.compada.io/roles"] || [];
     // Intersection (ROLES ∩ roles)[0]
-    settings["role"] = ROLES.find(x => roles.includes(x)) || "person";
+    settings["role"] = ROLES.find(x => roles.includes(x)) || ROLES[1];
     settings["jwt.claims.scope"] = req.auth.scope;
     settings["jwt.claims.person_id"] = req.auth.person_id;
     settings["jwt.claims.sub"] = req.auth.sub;

@@ -11,9 +11,8 @@ import jwksRsa from "jwks-rsa";
 //   iat: 1667367777,
 //   exp: 1667454177,
 //   azp: 'mXYOfDVP09PygHlpOPa48i7cfLzVUc0J',
-//   scope: 'openid profile email read:all write:all',
+//   scope: 'openid profile email',
 //   'https://api.compada.io/roles': [ 'postgres' ],
-//   permissions: [ 'read:all', 'write:all' ],
 //   person_id: '9d662ab9-70e4-4009-aeb9-b9b5c9615bd0'
 // }
 

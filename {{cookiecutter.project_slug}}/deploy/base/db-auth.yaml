@@ -4,7 +4,7 @@ kind: ExternalSecret
 metadata:
   name: {{ cookiecutter.resource }}-service-db-auth
 spec:
-  refreshInterval: 24h
+  refreshInterval: 1h
   secretStoreRef:
     kind: ClusterSecretStore
     name: gcpsm
